@@ -21,29 +21,30 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Cache Node.js modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ matrix.node-version }}-
+  uses: actions/cache@v3
+  with:
+    path: ~/.npm
+    key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+    restore-keys: |
+      ${{ runner.os }}-node-${{ matrix.node-version }}-
+    enableCrossOsArchive: true
 
-      - name: Set up Node.js
+     - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+        node-version: ${{ matrix.node-version }}
 
       - name: Install Dependencies
         run: npm install
 
-      # - name: Run Linting
-      #   uses: github/super-linter@v4 # Use super-linter action
+      - name: Run Linting
+        uses: github/super-linter@v4 # Use super-linter action
 
-      # - name: Run Tests
-      #   run: npm test
+      - name: Run Tests
+        run: npm test
 
-      # - name: Build Site
-      #   run: npm run build
+      - name: Build Site
+        run: npm run build
 
   deploy:
     needs: build
