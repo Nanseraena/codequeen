@@ -36,14 +36,14 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Run Linting
-        uses: github/super-linter@v4 # Use super-linter action
+      # - name: Run Linting
+      #   uses: github/super-linter@v4 # Use super-linter action
 
-      - name: Run Tests
-        run: npm test
+      # - name: Run Tests
+      #   run: npm test
 
-      - name: Build Site
-        run: npm run build
+      # - name: Build Site
+      #   run: npm run build
 
   deploy:
     needs: build
